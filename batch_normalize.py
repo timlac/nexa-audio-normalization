@@ -33,8 +33,12 @@ for idx, filepath in enumerate(paths):
         subprocess.run(command, shell=True)
 
         # Step 2: Normalize Audio
-        command = f'ffmpeg -i "{raw_audio_path}" -filter:a loudnorm=I=-23:TP=-1.5:LRA=11 "{normalized_audio_path}"'
+        # Constructing the FFmpeg command with speechnorm filter
+        command = (f'ffmpeg -i "{raw_audio_path}" '
+                   f'-filter:a "speechnorm=peak=0.98:expansion=3:compression=2:threshold=0.01:raise=0.01:fall=0.01" '
+                   f'"{normalized_audio_path}"')
         print(command)
+        # Execute the command
         subprocess.run(command, shell=True)
 
         # Step 3: Merge Normalized Audio back with Original Video
