@@ -18,8 +18,13 @@ When running ffmpeg some of the normalized videos are silenced. However, convert
 
 ## Video Collection
 
+Note, currently rely on dev token authentication. Awaiting administrator approval for JWT token. Ticket pending. 
+
+
 Video id number `A327` does not seem to have the emotion sadness... 
 
 Video id number `A55` has a lot of different versions, maybe remove some? 
 
 Video id number `A65` does not have any un-normalized clips in the folder, skipping... 
+
+
