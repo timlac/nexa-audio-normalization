@@ -16,6 +16,10 @@ which handles clips with very low volume more efficiently, and handles the audio
 
 When running ffmpeg some of the normalized videos are silenced. However, converting the audio to AAC codec when running the normalization seems to fix this error. 
 
+### TODO
+
+Convert video to lower resolution in normalization, or create a separate script for this. But would be convenient to do at the same time. 
+
 ## Video Collection
 
 Note, currently rely on dev token authentication. Awaiting administrator approval for JWT token. Ticket pending. 
