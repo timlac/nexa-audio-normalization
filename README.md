@@ -16,3 +16,10 @@ which handles clips with very low volume more efficiently, and handles the audio
 
 When running ffmpeg some of the normalized videos are silenced. However, converting the audio to AAC codec when running the normalization seems to fix this error. 
 
+## Video Collection
+
+Video id number `A327` does not seem to have the emotion sadness... 
+
+Video id number `A55` has a lot of different versions, maybe remove some? 
+
+Video id number `A65` does not have any un-normalized clips in the folder, skipping... 
