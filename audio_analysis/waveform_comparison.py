@@ -2,7 +2,7 @@ import librosa
 import librosa.display
 import matplotlib.pyplot as plt
 
-filename = "A405_neu_sit1_p"
+filename = "A405_neu_sit4_p"
 
 audio_file1 = f"../data/box_downloads/{filename}.mov"  # Replace with the path to your first audio file
 audio_file2 = f"../data/normalized_box_downloads/{filename}.mp4"  # Replace with the path to your second audio file
@@ -13,6 +13,9 @@ y2, sr2 = librosa.load(audio_file2)
 y3, sr3 = librosa.load(audio_file3)
 
 plt.figure(figsize=(12, 8))
+
+plt.suptitle(f"Comparison of Audio Waveforms {filename}", fontsize=16)
+
 
 plt.subplot(3, 1, 1)
 librosa.display.waveshow(y1, sr=sr1)

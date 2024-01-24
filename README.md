@@ -42,4 +42,8 @@ Video id number `A55` has a lot of different versions, maybe remove some?
 
 Video id number `A65` does not have any un-normalized clips in the folder, skipping... 
 
+Video `A408_neu_sit4_p` has some kind of clipping sound in the beginning making the effectively making the other sounds lower in normalization:
+
+![waveforms_A408_neu_sit4_p.png](plots%2Fwaveforms_A408_neu_sit4_p.png)
+
 
