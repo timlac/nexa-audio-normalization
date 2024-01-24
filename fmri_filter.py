@@ -3,15 +3,15 @@ from nexa_coding_interpreter.metadata import Metadata
 from pathlib import Path
 
 fmri_emotions = [
-    "anger",
-    "anxiety",
-    "disgust",
-    "sadness",
-    "happiness_joy",
-    "interest_curiosity",
-    "positive_surprise",
-    "relief",
-    "neutral"
+    # "anger",
+    # "anxiety",
+    # "disgust",
+    # "sadness",
+    # "happiness_joy",
+    # "interest_curiosity",
+    "pride",
+    # "relief",
+    # "neutral"
 ]
 
 fmri_emotion_ids = Mapper.get_emotion_id_from_emotion(fmri_emotions)

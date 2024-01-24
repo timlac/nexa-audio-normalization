@@ -74,7 +74,7 @@ def list_video_ids():
 
 
 def download_fmri():
-    download_folder = "../data/box_downloads/"
+    download_folder = "../data/box_downloads_pride/"
 
     auth = BoxDeveloperTokenAuth(token=DEV_TOKEN)
     client = BoxClient(auth=auth)
@@ -92,5 +92,5 @@ if __name__ == '__main__':
     load_dotenv()
     DEV_TOKEN = os.getenv("BOX_DEV_TOKEN")
 
-    # download_fmri()
-    list_video_ids()
+    download_fmri()
+    # list_video_ids()

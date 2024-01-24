@@ -16,9 +16,20 @@ which handles clips with very low volume more efficiently, and handles the audio
 
 When running ffmpeg some of the normalized videos are silenced. However, converting the audio to AAC codec when running the normalization seems to fix this error. 
 
-### TODO
 
-Convert video to lower resolution in normalization, or create a separate script for this. But would be convenient to do at the same time. 
+Upon further experimentation it turns out that some videos do not get properly increased loudness using Loudness Normalization. 
+
+As illustrated in the histogram below there is a clear collection of outliers around 0.0
+
+### Loudness Normalized Files
+
+![histogram loudness normalized files.png](data%2Fplots%2Fhistogram_loudness_normalized_files.png)
+
+This is however handled better using Peak Normalization instead, which produces no outliers:
+
+### Peak Normalized Files
+
+![histogram_peak_normalized_files.png](data%2Fplots%2Fhistogram_peak_normalized_files.png)
 
 ## Video Collection
 
