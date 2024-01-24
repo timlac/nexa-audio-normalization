@@ -23,13 +23,13 @@ As illustrated in the histogram below there is a clear collection of outliers ar
 
 ### Loudness Normalized Files
 
-![histogram loudness normalized files.png](data%2Fplots%2Fhistogram_loudness_normalized_files.png)
+![histogram loudness normalized files.png](plots%2Fhistogram_loudness_normalized_files.png)
 
 This is however handled better using Peak Normalization instead, which produces no outliers:
 
 ### Peak Normalized Files
 
-![histogram_peak_normalized_files.png](data%2Fplots%2Fhistogram_peak_normalized_files.png)
+![histogram_peak_normalized_files.png](plots%2Fhistogram_peak_normalized_files.png)
 
 ## Video Collection
 
