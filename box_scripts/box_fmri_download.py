@@ -55,6 +55,10 @@ def iterate_files(client):
 
 
 def iterate_video_ids(client):
+    """
+    Only for overview of the videos, not used in dl script
+    # TODO: Could probably place within iterate files func
+    """
     for top_level_item in client.folders.get_folder_items('0').entries:
         if top_level_item.name == "Edited":
             for video_id_folder in get_all_items_in_folder(client, top_level_item.id):
@@ -74,7 +78,7 @@ def list_video_ids():
 
 
 def download_fmri():
-    download_folder = "../data/box_downloads_pride/"
+    download_folder = "../data/box_downloads/"
 
     auth = BoxDeveloperTokenAuth(token=DEV_TOKEN)
     client = BoxClient(auth=auth)
@@ -92,5 +96,5 @@ if __name__ == '__main__':
     load_dotenv()
     DEV_TOKEN = os.getenv("BOX_DEV_TOKEN")
 
-    download_fmri()
-    # list_video_ids()
+    # download_fmri()
+    list_video_ids()
