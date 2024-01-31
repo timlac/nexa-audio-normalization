@@ -40,7 +40,7 @@ def find_silent_files(folder_path, threshold=0.01):
     return silent_files, peaks
 
 
-folder_path = '../data/peak_normalized_box_downloads'
+folder_path = '../data/box_downloads'
 silent_threshold = 0.001  # Adjust this threshold as needed
 
 silent_files, peaks = find_silent_files(folder_path, threshold=silent_threshold)

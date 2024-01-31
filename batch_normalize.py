@@ -2,13 +2,22 @@ from glob import glob
 import subprocess
 import os
 
-input_glob = "data/box_downloads/**/*.mov"
+from fmri_filter import filter_paths
+
+input_glob = "data/A65_download/**/*.mov"
 output_folder = "data/peak_normalized_box_downloads"
 
 # input_glob = "data/examples/**/*.mov"
 # output_folder = "data/normalized_examples"
 
+
+# input_glob = "/home/tim/Downloads/maries_filer/**/*.mov"
+# output_folder = "data/peak_normalized_marie"
+
 paths = glob(input_glob, recursive=True)
+
+paths = filter_paths(paths)
+
 
 normalize_audio = ('ffmpeg-normalize -f -v -ext "mp4" "{}" -of {} '
                    '-c:a aac -b:a 320k -nt peak '

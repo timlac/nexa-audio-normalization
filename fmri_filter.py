@@ -37,3 +37,12 @@ def belongs_to_fmri_dataset(filename):
 
     return True
 
+
+def filter_paths(paths):
+    ret = []
+    for path in paths:
+        if belongs_to_fmri_dataset(path):
+            ret.append(path)
+        else:
+            print("skipping path with non-valid metadata: " + str(path))
+    return ret

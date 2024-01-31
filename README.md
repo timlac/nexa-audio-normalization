@@ -19,6 +19,10 @@ When running ffmpeg some of the normalized videos are silenced. However, convert
 
 Upon further experimentation it turns out that some videos do not get properly increased loudness using Loudness Normalization. 
 
+### Original files
+
+![histogram_original_files.png](plots%2Fhistogram_original_files.png)
+
 As illustrated in the histogram below there is a clear collection of outliers around 0.0
 
 ### Loudness Normalized Files
