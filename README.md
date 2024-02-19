@@ -52,4 +52,8 @@ Video `A408_neu_sit4_p` has some kind of high pitch sound in the beginning makin
 
 Video `A207_pri_p_2` is completely silent, peak normalization fails. 
 
+Video `A200_neu_sit4_p` has a weird audio pattern and is silent:
 
+![A200_neu_sit4_p.wave.png](plots%2FA200_neu_sit4_p.wave.png)
+
+TODO: REMOVE THIS FILE FROM AUDIO

@@ -10,10 +10,10 @@ for filename in os.listdir("data/box_downloads"):
 
     meta = Metadata(filename_no_ext)
 
-    if meta.video_id not in overview.keys():
-        overview[meta.video_id] = []
+    if meta.emotion_1_id not in overview.keys():
+        overview[meta.emotion_1_id] = []
 
-    overview[meta.video_id].append(filename)
+    overview[meta.emotion_1_id].append(filename)
 
 
 print(len(overview.keys()))

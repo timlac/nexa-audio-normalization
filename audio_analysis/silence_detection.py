@@ -25,6 +25,8 @@ def find_silent_files(folder_path, threshold=0.01):
     silent_files = []
     peaks = []
 
+    peak_dict = {}
+
     for filename in os.listdir(folder_path):
         if filename.endswith(('.mov', '.mp4', '.mkv')):  # Add more audio file formats if needed
             audio_file = os.path.join(folder_path, filename)
@@ -34,16 +36,18 @@ def find_silent_files(folder_path, threshold=0.01):
 
             peaks.append(peak)
 
+            peak_dict[filename] = peak
+
             if all(is_silent):
                 silent_files.append(audio_file)
 
-    return silent_files, peaks
+    return silent_files, peaks, peak_dict
 
 
-folder_path = '../data/box_downloads'
-silent_threshold = 0.001  # Adjust this threshold as needed
+folder_path = '/home/tim/Work/nexa/nexa-audio-normalization/data/appraisal/pilot/experiment'
+silent_threshold = 0.01  # Adjust this threshold as needed
 
-silent_files, peaks = find_silent_files(folder_path, threshold=silent_threshold)
+silent_files, peaks, peak_dict = find_silent_files(folder_path, threshold=silent_threshold)
 
 if silent_files:
     print("Silent files found:")
@@ -59,3 +63,7 @@ plt.ylabel('Frequency')
 plt.title('Histogram of peak levels')
 plt.grid(True)
 plt.show()
+
+
+
+print(dict(sorted(peak_dict.items(), key=lambda item: item[1])))

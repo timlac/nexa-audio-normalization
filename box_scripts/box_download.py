@@ -6,9 +6,9 @@ from box_sdk_gen.utils import ByteStream
 from dotenv import load_dotenv
 import os
 from nexa_coding_interpreter.constants import video_id_pattern
-from nexa_coding_interpreter.metadata import Metadata
 
-from fmri_filter import belongs_to_fmri_dataset
+from box_scripts.appraisal_filter import belongs_to_appraisal
+from box_scripts.fmri_filter import belongs_to_fmri_dataset
 
 
 def file_exists_in_folder(local_folder_path, filename):
@@ -97,15 +97,31 @@ def download_fmri():
     for filename in iterate_a65(client):
         if belongs_to_fmri_dataset(filename.name):
             if not file_exists_in_folder(download_folder, filename.name):
-                print(f'{filename.name} belongs to fmri dataset, downloading...')
+                print(f'{filename.name} belongs to dataset, downloading...')
                 download_file(client, filename.id, os.path.join(download_folder, filename.name))
             else:
                 print(f'{filename.name} already exists, skipping...')
+
+
+def download_appraisal():
+    download_folder = "../data/appraisal/pilot/experiment"
+
+    auth = BoxDeveloperTokenAuth(token=DEV_TOKEN)
+    client = BoxClient(auth=auth)
+
+    for filename in iterate_files(client):
+        if belongs_to_appraisal(filename.name):
+            if not file_exists_in_folder(download_folder, filename.name):
+                print(f'{filename.name} belongs to dataset, downloading...')
+                download_file(client, filename.id, os.path.join(download_folder, filename.name))
+            else:
+                print(f'{filename.name} already exists, skipping...')
+
 
 
 if __name__ == '__main__':
     load_dotenv()
     DEV_TOKEN = os.getenv("BOX_DEV_TOKEN")
 
-    download_fmri()
+    download_appraisal()
     # list_video_ids()
