@@ -10,7 +10,7 @@ print(all_filenames)
 print(len(all_filenames))
 
 
-def belongs_to_appraisal(filename):
+def belongs_to_appraisal_pilot(filename):
     filename_no_ext = Path(filename).stem
 
     if filename_no_ext in all_filenames:

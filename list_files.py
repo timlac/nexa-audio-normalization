@@ -1,7 +1,12 @@
 from glob import glob
+import os
 
-path = "/home/tim/Downloads/maries_filer/**/*.mov"
+from box_scripts.main_validation_study_filter import belongs_to_main_validation_study
 
-ret = glob(path, recursive=True)
+path = "data/original_validation_experiment"
 
-print(len(ret))
+i = 0
+for filename in os.listdir(path):
+    i += 1
+
+print(i)

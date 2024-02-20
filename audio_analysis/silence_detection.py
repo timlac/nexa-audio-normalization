@@ -2,68 +2,85 @@ import os
 import librosa
 import numpy as np
 import matplotlib.pyplot as plt
+from glob import glob
+from nexa_coding_interpreter.metadata import Metadata
+from pathlib import Path
 
 import warnings
 warnings.filterwarnings('ignore')
 
-def detect_silence(audio_file, threshold=0.01, frame_length=2048, hop_length=512):
+
+def detect_rms(audio_file, threshold=0.01, frame_length=2048, hop_length=512):
     # Load the audio file
     y, sr = librosa.load(audio_file)
 
     # Calculate the RMS energy of the audio using a moving window
-    rms = librosa.feature.rms(y=y, frame_length=frame_length, hop_length=hop_length)[0]
+    ret_rms = librosa.feature.rms(y=y, frame_length=frame_length, hop_length=hop_length)[0]
 
-    print(f'{rms.max()=}')
-
-    # Threshold for considering a segment as silent
-    is_silent = rms < threshold
-
-    return is_silent, rms.max()
+    return ret_rms
 
 
-def find_silent_files(folder_path, threshold=0.01):
-    silent_files = []
-    peaks = []
+def rms_to_db(input_rms, ref=1.0, epsilon=1e-10):
+    inp = np.maximum(epsilon, input_rms)
 
-    peak_dict = {}
-
-    for filename in os.listdir(folder_path):
-        if filename.endswith(('.mov', '.mp4', '.mkv')):  # Add more audio file formats if needed
-            audio_file = os.path.join(folder_path, filename)
-
-            print(f"detecting {filename}")
-            is_silent, peak = detect_silence(audio_file, threshold=threshold)
-
-            peaks.append(peak)
-
-            peak_dict[filename] = peak
-
-            if all(is_silent):
-                silent_files.append(audio_file)
-
-    return silent_files, peaks, peak_dict
+    # Convert RMS values to decibels
+    return 20 * np.log10(inp/ref)
 
 
-folder_path = '/home/tim/Work/nexa/nexa-audio-normalization/data/appraisal/pilot/experiment'
-silent_threshold = 0.01  # Adjust this threshold as needed
+path = '../data/original_validation_experiment/*.mp4'
+glob_audio_files = glob(path)
 
-silent_files, peaks, peak_dict = find_silent_files(folder_path, threshold=silent_threshold)
-
-if silent_files:
-    print("Silent files found:")
-    for file in silent_files:
-        print(file)
-else:
-    print("No silent files found.")
+rms_dict = {}
+rms_peak_dict = {}
+rms_peak_db_dict = {}
 
 
-plt.hist(peaks, bins=100, edgecolor='black')  # Adjust the number of bins as needed
+for idx, af in enumerate(glob_audio_files):
+    print(f'Processing {af} {idx}/{len(glob_audio_files)}')
+
+    filename = os.path.basename(af)
+    rms = detect_rms(af)
+    rms_peak = np.max(rms)
+    rms_peak_db = rms_to_db(rms_peak)
+
+    rms_dict[filename] = rms
+    rms_peak_dict[filename] = rms_peak
+    rms_peak_db_dict[filename] = rms_peak_db
+
+
+# Assuming rms_peak_db_dict contains your peak dB levels for each file
+peak_levels_db = list(rms_peak_db_dict.values())
+
+# Calculate the mean and standard deviation
+mean_db = np.mean(peak_levels_db)
+std_dev_db = np.std(peak_levels_db)
+
+print(f"Mean Peak Level (dB): {mean_db:.2f}")
+print(f"Standard Deviation of Peak Levels (dB): {std_dev_db:.2f}")
+
+
+plt.hist(rms_peak_db_dict.values(), bins=300, edgecolor='black')  # Adjust the number of bins as needed
 plt.xlabel('Peaks')
 plt.ylabel('Frequency')
 plt.title('Histogram of peak levels')
 plt.grid(True)
 plt.show()
 
+plt.boxplot(rms_peak_db_dict.values())
+plt.xlabel('Audio Files')
+plt.ylabel('Peak Levels (dB)')
+plt.title('Distribution of Peak Levels in Decibels')
+plt.grid(True)
+plt.show()
+
+sorted_tuples = sorted(rms_peak_db_dict.items(), key=lambda item: item[1])
+sorted_dict = dict(sorted_tuples)
+print(sorted_dict)
 
 
-print(dict(sorted(peak_dict.items(), key=lambda item: item[1])))
+for key, val in sorted_dict.items():
+    filename_no_ext = Path(key).stem
+    meta = Metadata(filename_no_ext)
+
+    if meta.mode == "p":
+        print(f'filename: {filename_no_ext}, rms_peak_db: {val}')
